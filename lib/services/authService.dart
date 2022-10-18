@@ -18,13 +18,9 @@ class AuthService {
 
   Future<bool> SignUp(String email, String password) async {
     try {
-      final response = await Supabase.instance.client.auth
-          .signIn(email: email, password: password);
-      if (response.error != null) {
-        return false;
-      } else {
-        return true;
-      }
+      final response =
+          await Supabase.instance.client.auth.signUp(email, password);
+      return response.data != null;
     } catch (e) {
       print(e.toString());
       return false;
@@ -45,13 +41,13 @@ class AuthService {
     }
   }
 
-  Future<bool> checkSignin() async {
+  Future<User?> checkSignin() async {
     try {
       final response = await Supabase.instance.client.auth.currentUser;
-      return response != null;
+
+      return response != null ? response : null;
     } catch (e) {
-      print(e.toString());
-      return false;
+      return null;
     }
   }
 }

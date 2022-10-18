@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:miniproject1/logic/cubits/cubit/auth_cubit.dart';
 import 'package:miniproject1/routes.dart';
 
 import '../logic/cubits/splashscreencubit/splashscreen_cubit.dart';
@@ -17,10 +18,12 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return BlocListener<SplashscreenCubit, SplashscreenState>(
       listener: (context, state) {
-        if (state is Loggedin)
+        if (state is Loggedin) {
+          context.read<AuthCubit>().login(state.admin);
+
           Navigator.pushReplacementNamed(context, Routes.HOME_ROUTE);
-        else if (state is UnAuthenticated)
-          Navigator.pushReplacementNamed(context, Routes.LOGIN_ROUTE);
+        } else if (state is UnAuthenticated)
+          Navigator.pushReplacementNamed(context, Routes.FRONT_PAGE);
       },
       child: SafeArea(
         child: Scaffold(
@@ -32,7 +35,6 @@ class _SplashScreenState extends State<SplashScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text("SPLASH SCREEN"),
                   SizedBox(
                     height: 100,
                   ),

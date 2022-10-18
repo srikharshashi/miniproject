@@ -5,8 +5,11 @@ abstract class SplashscreenState {}
 
 class SplashscreenLoading extends SplashscreenState {}
 
-class ConnectivityError extends SplashscreenState{}
+class ConnectivityError extends SplashscreenState {}
 
-class Loggedin extends SplashscreenState{}
+class Loggedin extends SplashscreenState {
+  Admin admin;
+  Loggedin({required this.admin});
+}
 
-class UnAuthenticated extends SplashscreenState{}
+class UnAuthenticated extends SplashscreenState {}
